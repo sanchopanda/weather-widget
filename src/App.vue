@@ -1,26 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="container">
+    <span class="location">London, UK</span>
+    <button class="settings-toggle"></button>
+    <div class="main">
+      <div class="image"></div>
+      <div class="temperature">7°C</div>
+    </div>
+    <div class="description">Feels like -3°C. Broken clouds. Light breeze</div>
+    <div class="details">
+      <div class="detail" v-for="detail in details" :key="detail">
+        {{ detail }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
 export default {
   name: "App",
-  components: {
-    HelloWorld,
+  data() {
+    return {
+      details: ["detail1", "detail2", "detail3"],
+    };
   },
 };
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
