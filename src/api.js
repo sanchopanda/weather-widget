@@ -4,6 +4,29 @@ export const fetchWeather = (city) => {
   )
     .then((r) => r.json())
     .then((rawData) => {
-      return rawData;
+      const {
+        name: city,
+        sys: { country: country_code },
+        main: {
+          feels_like: feels_like,
+          temp: temp,
+          pressure: pressure,
+          humidity: humidity,
+        },
+        weather: [{ description: description, icon: icon }],
+        visibility: visibility,
+      } = rawData;
+
+      return {
+        city,
+        country_code,
+        temp,
+        pressure,
+        humidity,
+        visibility,
+        feels_like,
+        description,
+        icon,
+      };
     });
 };
