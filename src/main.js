@@ -1,4 +1,17 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import VueSvgInlinePlugin from "vue-svg-inline-plugin";
+import "vue-svg-inline-plugin/src/polyfills";
 
-createApp(App).mount("#app");
+const app = createApp(App);
+
+app.use(VueSvgInlinePlugin);
+
+app.use(VueSvgInlinePlugin, {
+  attributes: {
+    data: ["src"],
+    remove: ["alt"],
+  },
+});
+
+app.mount("#app");

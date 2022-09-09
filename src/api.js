@@ -15,6 +15,7 @@ export const fetchWeather = (city) => {
         },
         weather: [{ description: description, icon: icon }],
         visibility: visibility,
+        wind: { deg: degree, speed: speed },
       } = rawData;
 
       return {
@@ -27,6 +28,8 @@ export const fetchWeather = (city) => {
         feels_like,
         description,
         icon,
+        degree,
+        speed,
       };
     });
 };
