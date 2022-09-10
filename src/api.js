@@ -52,5 +52,5 @@ export const fetchCurrentCity = async () => {
 export const fetchAutocompleteCities = (value) => {
   return fetch(`${AUTOCOMPLETE_API}?locale=en&types[]=city&term=${value}`)
     .then((r) => r.json())
-    .then((rawData) => rawData.map(({ city_name: city }) => city));
+    .then((rawData) => rawData.map(({ name: city }) => city));
 };

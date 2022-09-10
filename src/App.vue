@@ -2,10 +2,10 @@
   <div class="weather">
     <button class="weather__settings-toggle"></button>
     <div class="weather__settings">
-      <Settings />
+      <Settings :cities="cities" @updateCities="updateCities" />
     </div>
     <div class="weather__cards">
-      <Card v-for="card in cards" :key="card.id" :card="card" />
+      <Card v-for="city in cities" :key="city" :city="city" />
     </div>
   </div>
 </template>
@@ -13,6 +13,7 @@
 <script>
 import Card from "@/components/Card/Card.vue";
 import Settings from "@/components/Settings/Settings.vue";
+import { fetchCurrentCity } from "@/api";
 
 export default {
   name: "App",
@@ -22,11 +23,22 @@ export default {
   },
   data() {
     return {
-      cards: [
-        { city: "london", id: "1" },
-        { city: "moscow", id: "2" },
-      ],
+      cities: [],
     };
+  },
+  async mounted() {
+    this.cities = localStorage.getItem("weather-cities") || [
+      await fetchCurrentCity(),
+    ];
+  },
+  methods: {
+    updateCities(value) {
+      this.cities = value;
+    },
   },
 };
 </script>
+
+<style>
+@import "@/styles/weather.scss";
+</style>

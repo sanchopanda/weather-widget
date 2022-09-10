@@ -38,8 +38,8 @@ export default {
   name: "AppCard",
   components: {},
   props: {
-    card: {
-      type: Object,
+    city: {
+      type: String,
       required: true,
     },
   },
@@ -49,8 +49,7 @@ export default {
     };
   },
   async mounted() {
-    this.data = await fetchWeather(this.card.city);
-    console.log(this.data);
+    this.data = await fetchWeather(this.city);
   },
   methods: {
     stringifyTemp(temp) {

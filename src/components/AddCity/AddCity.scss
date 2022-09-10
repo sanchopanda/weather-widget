@@ -1,34 +1,26 @@
-.card {
-    width: 280px;
-    font-family: Gill Sans Extrabold, sans-serif;
-    font-size: 18px;
+.add-city {
+    display: grid;
+    grid-template-columns: 1fr 24px;
+    grid-template-areas: "title ." "input submit" "results .";
     
-	&__details {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 8px;
+
+    &__title {
+       grid-area: title;
     }
 
-    &__main {
-        display: flex;
-        align-items: center;
+    &__input {
+        grid-area: input;
     }
 
-    &__description {
-        margin-bottom: 12px;
+    &__submit {
+        grid-area: submit;
     }
 
-    &__temperature {
-        font-size: 32px;
-        font-weight: 600;
+    &__results {
+        grid-area: results;
     }
 
-    &__detail {
-        display: flex;
-        align-items: center;
-
-        svg {
-            margin-right: 4px;
-        }
+    &__result {
+        cursor: pointer;
     }
 }

@@ -8,31 +8,35 @@
         <div class="city__name">
           {{ city }}
         </div>
-        <button class="city__delete"></button>
+        <button class="city__delete" @click="deleteCity(city)"></button>
       </div>
     </div>
     <div class="settings__add">
-      <AddCity />
+      <AddCity @addCity="addCity" />
     </div>
   </div>
 </template>
 <script>
-import { fetchCurrentCity } from "@/api";
 import AddCity from "@/components/AddCity/AddCity.vue";
 
 export default {
   name: "AppSettings",
   components: { AddCity },
-  props: {},
-  data() {
-    return {
-      cities: [],
-    };
+  props: {
+    cities: {
+      type: Array,
+      required: true,
+    },
   },
-  async mounted() {
-    this.cities = localStorage.getItem("weather-cities") || [
-      await fetchCurrentCity(),
-    ];
+  methods: {
+    addCity(city) {
+      const newCities = [...this.cities, city];
+      this.$emit("updateCities", newCities);
+    },
+    deleteCity(city) {
+      const newCities = this.cities.filter((c) => c !== city);
+      this.$emit("updateCities", newCities);
+    },
   },
 };
 </script>
