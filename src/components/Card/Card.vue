@@ -48,7 +48,7 @@ export default {
       data: null,
     };
   },
-  async created() {
+  async mounted() {
     this.data = await fetchWeather(this.card.city);
     console.log(this.data);
   },
