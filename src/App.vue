@@ -10,12 +10,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import Card from "@/components/Card/Card.vue";
 import Settings from "@/components/Settings/Settings.vue";
 import { fetchCurrentCity } from "@/api";
 
-export default {
+export default defineComponent({
   name: "App",
   components: {
     Card,
@@ -23,22 +24,23 @@ export default {
   },
   data() {
     return {
-      cities: [],
+      cities: [] as Array<string>,
     };
   },
   async mounted() {
-    this.cities = localStorage.getItem("weather-cities") || [
-      await fetchCurrentCity(),
-    ];
+    this.cities = JSON.parse(
+      localStorage.getItem("weather-cities") as string
+    ) ?? [await fetchCurrentCity()];
   },
   methods: {
-    updateCities(value) {
+    updateCities(value: Array<string>) {
       this.cities = value;
+      console.log(this.cities, value);
     },
   },
-};
+});
 </script>
 
-<style>
+<style scoped lang="scss">
 @import "@/styles/weather.scss";
 </style>

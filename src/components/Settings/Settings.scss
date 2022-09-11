@@ -1,34 +1,11 @@
-.card {
-    width: 280px;
-    font-family: Gill Sans Extrabold, sans-serif;
-    font-size: 18px;
-    
-	&__details {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 8px;
+.settings {
+    &__close {
+        @include button-reset;
     }
+}
 
-    &__main {
-        display: flex;
-        align-items: center;
-    }
-
-    &__description {
-        margin-bottom: 12px;
-    }
-
-    &__temperature {
-        font-size: 32px;
-        font-weight: 600;
-    }
-
-    &__detail {
-        display: flex;
-        align-items: center;
-
-        svg {
-            margin-right: 4px;
-        }
+.city {
+    &__delete {
+        @include button-reset;
     }
 }

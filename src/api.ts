@@ -1,7 +1,8 @@
 const OPEN_WEATHER_API = "https://api.openweathermap.org/data/2.5/weather";
 const AUTOCOMPLETE_API = "https://autocomplete.travelpayouts.com/places2";
 
-export const fetchWeather = (city) => {
+export const fetchWeather = (city: string) => {
+  console.log(city);
   return fetch(
     `${OPEN_WEATHER_API}?q=${city}&units=metric&appid=${process.env.VUE_APP_OPEN_WEATHER_API_KEY}`
   )
@@ -38,7 +39,7 @@ export const fetchWeather = (city) => {
 };
 
 export const fetchCurrentCity = async () => {
-  const pos = await new Promise((resolve, reject) => {
+  const pos: any = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 
@@ -49,8 +50,10 @@ export const fetchCurrentCity = async () => {
     .then(({ name: city }) => city);
 };
 
-export const fetchAutocompleteCities = (value) => {
+export const fetchAutocompleteCities = (value: string) => {
   return fetch(`${AUTOCOMPLETE_API}?locale=en&types[]=city&term=${value}`)
     .then((r) => r.json())
-    .then((rawData) => rawData.map(({ name: city }) => city));
+    .then((rawData) =>
+      rawData.map(({ name: city }: { name: string; city: string }) => city)
+    );
 };
