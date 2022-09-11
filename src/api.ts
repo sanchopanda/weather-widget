@@ -39,30 +39,43 @@ export const fetchWeather = async (request: ICity): Promise<IWeather> => {
   };
 };
 
-export const fetchCurrentCity = async () => {
+export const fetchCurrentCity = async (): Promise<ICity> => {
   const pos: any = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 
-  return fetch(
+  const response = await fetch(
     `${OPEN_WEATHER_API}?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=${process.env.VUE_APP_OPEN_WEATHER_API_KEY}`
-  )
-    .then((r) => r.json())
-    .then(({ name: city, sys: { country: country_code }, id }) => ({
-      city,
-      country_code,
-      id,
-    }));
+  );
+
+  const rawData = await response.json();
+
+  const {
+    name: city,
+    sys: { country: country_code },
+    id,
+  } = rawData;
+  return {
+    city,
+    country_code,
+    id,
+  };
 };
 
 export const fetchAutocompleteCities = (value: string) => {
   return fetch(`${AUTOCOMPLETE_API}?locale=en&types[]=city&term=${value}`)
     .then((r) => r.json())
     .then((rawData) =>
-      rawData.map(({ name: city, country_code, id }: ICity) => ({
-        city,
-        country_code,
-        id,
-      }))
-    );
+      rawData
+        .map(({ name: city, country_code, id }: ICity) => ({
+          city,
+          country_code,
+          id,
+        }))
+        .slice(0, 5)
+    )
+    .catch((e) => {
+      const error = new Error();
+      throw error;
+    });
 };

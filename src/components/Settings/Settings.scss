@@ -1,9 +1,9 @@
 .settings {
   display: flex;
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
+  top: 8px;
+  right: 8px;
+  width: 280px;
   opacity: 0;
   background-color: var(--white);
   padding: 8px 8px 24px 8px;
@@ -12,14 +12,12 @@
   width: 0;
   overflow: hidden;
 
-  //transform: translateX(100%);
-  transition-property: opacity, transform, width;
+  transition-property: opacity, width;
   transition-duration: .3s;
   
 
   &.isVisible {
     opacity: 1;
-    //transform: translateX(0);
     width: 100%;
     overflow: hidden;
   }

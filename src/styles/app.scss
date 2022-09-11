@@ -1,23 +1,32 @@
 .app {
-    width: 296px;
-    padding: 8px;    
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 8px;   
+    font-size: 18px; 
     
     box-sizing: border-box;
 
     &__inner  {
-        width: 100%;
+        width: 296px;
+        padding: 8px;
+        display: flex;
         position: relative;
     }
 
     &__settings-toggle {
         position: absolute;
-        top: 8px;
-        right: 8px;
+        top: 16px;
+        right: 16px;
         @include button-reset;
-        @include defaultTransition(color, transform);
-        transform-origin: 50%;
+       
 
-        &:hover {
+        svg {
+            @include defaultTransition(color, transform);
+            transform-origin: 50%;
+        }
+
+        &:hover svg {
             color: var(--green);
             transform: rotate(180deg);
         }

@@ -1,11 +1,12 @@
 .add-city {
     display: grid;
     grid-template-columns: 1fr 24px;
-    grid-template-areas: "title ." "input submit" "results .";
+    grid-template-areas: "title ." "input submit" "error error" "results .";
     
 
     &__title {
        grid-area: title;
+       margin-bottom: 8px;
     }
 
     &__input {
@@ -15,6 +16,17 @@
     &__submit {
         grid-area: submit;
         @include button-reset;
+        @include defaultTransition(color);
+
+        &:hover {
+            color: var(--green);
+        }
+    }
+
+    &__error {
+        grid-area: error;
+        color: var(--red);
+        font-size: 16px;
     }
 
     &__results {

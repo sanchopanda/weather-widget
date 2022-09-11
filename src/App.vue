@@ -42,11 +42,14 @@ export default defineComponent({
     this.cities = JSON.parse(
       localStorage.getItem("weather-cities") as string
     ) ?? [await fetchCurrentCity()];
-    console.log(this.cities);
   },
   methods: {
-    updateCities(value: Array<ICity>) {
-      this.cities = value;
+    async updateCities(value: Array<ICity>) {
+      if (value.length > 0) {
+        this.cities = value;
+      } else {
+        this.cities = [await fetchCurrentCity()];
+      }
     },
   },
 });

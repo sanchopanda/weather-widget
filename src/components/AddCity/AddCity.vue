@@ -12,6 +12,9 @@
     <button type="submit" class="add-city__submit" @click="addCity">
       <img v-svg-inline src="@/assets/icons/enter.svg" />
     </button>
+    <div class="add-city__error" v-if="errorMessage !== ''">
+      {{ this.errorMessage }}
+    </div>
     <div class="add-city__results" v-if="results.length">
       <div
         class="add-city__result"
@@ -27,34 +30,70 @@
 <script lang="ts">
 import { ICity } from "@/types/ICity";
 import { fetchAutocompleteCities } from "@/api";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "AppAddCity",
   components: {},
+  props: {
+    cities: {
+      type: Array as PropType<ICity[]>,
+      required: true,
+    },
+  },
   data() {
     return {
       value: "",
-      city: {} as ICity,
+      city: null as null | ICity,
       results: [] as Array<ICity[]>,
+      errorMessage: "",
     };
   },
   methods: {
     async inputHandler() {
-      this.results = await fetchAutocompleteCities(this.value);
+      this.city = null;
+      if (this.value.length > 2) {
+        try {
+          this.results = await fetchAutocompleteCities(this.value);
+          this.errorMessage = "";
+        } catch {
+          this.errorMessage = "something went wrong";
+        }
+      } else {
+        this.results = [];
+        this.errorMessage = "";
+      }
     },
 
     addCity() {
-      this.results = [];
-      this.$emit("addCity", this.city);
-      this.value = "";
+      if (this.city) {
+        this.results = [];
+        this.$emit("addCity", this.city);
+        this.value = "";
+        this.city = null;
+        return;
+      }
+
+      if (this.value === "") {
+        this.errorMessage = "required";
+        return;
+      }
+
+      if (!this.city) {
+        this.errorMessage = "choose valid city";
+      }
     },
 
     selectAutocomplete(result: ICity) {
+      // if (this.cities.includes((c: any): boolean => c.id == result.id)) {
+      //   this.errorMessage = "this city has already been chosen";
+      //   return;
+      // }
       this.value = result.city;
       this.city = result;
       this.results = [];
-      //this.$refs.input.focus();
+      (this.$refs["input"] as HTMLInputElement).focus();
+      this.errorMessage = "";
     },
   },
 });
