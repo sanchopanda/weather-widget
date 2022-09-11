@@ -1,14 +1,18 @@
 <template>
   <div class="settings">
     <span class="settings__title">Settings</span>
-    <button class="settings__close"></button>
+    <button class="settings__close">
+      <img v-svg-inline src="@/assets/icons/close.svg" />
+    </button>
     <div class="settings__cities">
       <div class="settings__city city" v-for="city in cities" :key="city">
         <span class="city__burger"> </span>
         <div class="city__name">
           {{ city }}
         </div>
-        <button class="city__delete" @click="deleteCity(city)"></button>
+        <button class="city__delete" @click="deleteCity(city)">
+          <img v-svg-inline src="@/assets/icons/basket.svg" />
+        </button>
       </div>
     </div>
     <div class="settings__add">

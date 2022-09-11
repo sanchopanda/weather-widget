@@ -8,7 +8,9 @@
       @input="inputHandler"
       @keydown.enter="addCity"
     />
-    <button type="submit" class="add-city__submit" @click="addCity"></button>
+    <button type="submit" class="add-city__submit" @click="addCity">
+      <img v-svg-inline src="@/assets/icons/enter.svg" />
+    </button>
     <div class="add-city__results" v-if="results.length">
       <div
         class="add-city__result"

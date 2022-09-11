@@ -12,10 +12,11 @@
     <div class="card__description">{{ this.description }}</div>
     <div class="card__details">
       <div class="card__detail" v-if="data.speed">
-        <img v-svg-inline src="@/icons/wind.svg" /> {{ wind }}
+        <img v-svg-inline src="@/assets/icons/wind.svg" /> {{ wind }}
       </div>
       <div class="card__detail" v-if="data.pressure">
-        <img v-svg-inline src="@/icons/barometer.svg" /> {{ data.pressure }}hPa
+        <img v-svg-inline src="@/assets/icons/barometer.svg" />
+        {{ data.pressure }}hPa
       </div>
       <div class="card__detail" v-if="data.pressure">
         Humidity: {{ data.humidity }}%
