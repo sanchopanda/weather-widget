@@ -7,6 +7,7 @@
       v-model="value"
       @input="inputHandler"
       @keydown.enter="addCity"
+      ref="input"
     />
     <button type="submit" class="add-city__submit" @click="addCity">
       <img v-svg-inline src="@/assets/icons/enter.svg" />
@@ -15,23 +16,27 @@
       <div
         class="add-city__result"
         v-for="result in results"
-        :key="result"
+        :key="result.id"
         @click="selectAutocomplete(result)"
       >
-        {{ result }}
+        {{ result.city }}, {{ result.country_code }}
       </div>
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { ICity } from "@/types/ICity";
 import { fetchAutocompleteCities } from "@/api";
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "AppAddCity",
   components: {},
   data() {
     return {
       value: "",
-      results: [],
+      city: {} as ICity,
+      results: [] as Array<ICity[]>,
     };
   },
   methods: {
@@ -41,17 +46,18 @@ export default {
 
     addCity() {
       this.results = [];
-      console.log(this.value);
-      this.$emit("addCity", this.value);
+      this.$emit("addCity", this.city);
       this.value = "";
     },
 
-    selectAutocomplete(result) {
-      this.value = result;
+    selectAutocomplete(result: ICity) {
+      this.value = result.city;
+      this.city = result;
       this.results = [];
+      //this.$refs.input.focus();
     },
   },
-};
+});
 </script>
 
 <style scoped lang="scss">

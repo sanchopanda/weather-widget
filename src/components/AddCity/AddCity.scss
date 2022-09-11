@@ -23,5 +23,11 @@
 
     &__result {
         cursor: pointer;
+        margin-top: 8px;
+        @include defaultTransition(color);
+
+        &:hover {
+            color: var(--green);
+        }
     }
 }

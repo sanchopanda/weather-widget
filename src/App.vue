@@ -1,11 +1,20 @@
 <template>
-  <div class="weather">
-    <button class="weather__settings-toggle"></button>
-    <div class="weather__settings">
-      <Settings :cities="cities" @updateCities="updateCities" />
-    </div>
-    <div class="weather__cards">
-      <Card v-for="city in cities" :key="city" :city="city" />
+  <div class="app">
+    <div class="app__inner">
+      <button class="app__settings-toggle" @click="settingsVisible = true">
+        <img v-svg-inline src="@/assets/icons/settings.svg" />
+      </button>
+      <div class="app__settings">
+        <Settings
+          :cities="cities"
+          :isVisible="settingsVisible"
+          @updateCities="updateCities"
+          @close="settingsVisible = false"
+        />
+      </div>
+      <div class="app__cards">
+        <Card v-for="city in cities" :key="city" :city="city" />
+      </div>
     </div>
   </div>
 </template>
@@ -15,6 +24,7 @@ import { defineComponent } from "vue";
 import Card from "@/components/Card/Card.vue";
 import Settings from "@/components/Settings/Settings.vue";
 import { fetchCurrentCity } from "@/api";
+import { ICity } from "./types/ICity";
 
 export default defineComponent({
   name: "App",
@@ -24,23 +34,25 @@ export default defineComponent({
   },
   data() {
     return {
-      cities: [] as Array<string>,
+      cities: [] as Array<ICity>,
+      settingsVisible: false as boolean,
     };
   },
   async mounted() {
     this.cities = JSON.parse(
       localStorage.getItem("weather-cities") as string
     ) ?? [await fetchCurrentCity()];
+    console.log(this.cities);
   },
   methods: {
-    updateCities(value: Array<string>) {
+    updateCities(value: Array<ICity>) {
       this.cities = value;
-      console.log(this.cities, value);
     },
   },
 });
 </script>
 
-<style scoped lang="scss">
-@import "@/styles/weather.scss";
+<style lang="scss">
+@import "@/styles/global.scss";
+@import "@/styles/app.scss";
 </style>

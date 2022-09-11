@@ -32,32 +32,37 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { PropType } from "vue";
 import { fetchWeather } from "@/api";
+import { defineComponent } from "@vue/runtime-core";
+import { ICity } from "@/types/ICity";
+import { IWeather } from "@/types/IWeather";
 
-export default {
+export default defineComponent({
   name: "AppCard",
   components: {},
   props: {
     city: {
-      type: String,
+      type: Object as PropType<ICity>,
       required: true,
     },
   },
   data() {
     return {
-      data: null,
+      data: null as null | IWeather,
     };
   },
   async mounted() {
     this.data = await fetchWeather(this.city);
+    console.log(this.data);
   },
   methods: {
-    stringifyTemp(temp) {
+    stringifyTemp(temp: number) {
       return `${Math.round(temp)}°C`;
     },
 
-    stringifyRoseOfWind(degree) {
+    stringifyRoseOfWind(degree: number) {
       if (degree > 337.5 || degree < 22.5) return "N";
       if (degree >= 22.5 && degree < 67.5) return "NE";
       if (degree >= 67.5 && degree < 112.5) return "E";
@@ -70,21 +75,23 @@ export default {
   },
   computed: {
     description() {
-      return `Feels like ${this.stringifyTemp(this.data.feels_like)}. ${
-        this.data.description.charAt(0).toUpperCase() +
-        this.data.description.slice(1)
-      }.`;
+      return this.data
+        ? `Feels like ${this.stringifyTemp(this.data.feels_like)}. ${
+            this.data.description.charAt(0).toUpperCase() +
+            this.data.description.slice(1)
+          }.`
+        : "";
     },
     wind() {
-      return `${this.data.speed}m/s ${this.stringifyRoseOfWind(
-        this.data.degree
-      )}`;
+      return this.data
+        ? `${this.data.speed}m/s ${this.stringifyRoseOfWind(this.data.degree)}`
+        : "";
     },
     visibility() {
-      return this.data.visibility / 1000;
+      return this.data ? this.data.visibility / 1000 : "";
     },
   },
-};
+});
 </script>
 
 <style scoped lang="scss">

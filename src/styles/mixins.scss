@@ -1,5 +1,14 @@
 @mixin button-reset {
-    padding: 0;
-    border: none;
-    background-color: transparent;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+@mixin defaultTransition($args...) {
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.3s;
+  transition-property: $args;
 }
