@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="settings__add-city">
-      <AddCity @addCity="addCity" />
+      <AddCity @addCity="addCity" :cities="cities" />
     </div>
   </div>
 </template>

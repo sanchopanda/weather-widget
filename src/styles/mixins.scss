@@ -5,6 +5,13 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  outline: none;
+}
+
+@mixin list-reset {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 @mixin defaultTransition($args...) {

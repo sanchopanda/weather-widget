@@ -18,7 +18,8 @@
         @include button-reset;
         @include defaultTransition(color);
 
-        &:hover {
+        &:hover,
+        &:focus {
             color: var(--green);
         }
     }
@@ -31,14 +32,18 @@
 
     &__results {
         grid-area: results;
+        @include list-reset;
     }
 
     &__result {
         cursor: pointer;
         margin-top: 8px;
         @include defaultTransition(color);
+        outline: none;
+        
 
-        &:hover {
+        &:hover,
+        &:focus {
             color: var(--green);
         }
     }

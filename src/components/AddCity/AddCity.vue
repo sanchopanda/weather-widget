@@ -15,16 +15,18 @@
     <div class="add-city__error" v-if="errorMessage !== ''">
       {{ this.errorMessage }}
     </div>
-    <div class="add-city__results" v-if="results.length">
-      <div
+    <ul class="add-city__results" v-if="results.length">
+      <li
         class="add-city__result"
         v-for="result in results"
         :key="result.id"
         @click="selectAutocomplete(result)"
+        @keydown.enter="selectAutocomplete(result)"
+        tabindex="0"
       >
         {{ result.city }}, {{ result.country_code }}
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 <script lang="ts">
@@ -85,10 +87,12 @@ export default defineComponent({
     },
 
     selectAutocomplete(result: ICity) {
-      // if (this.cities.includes((c: any): boolean => c.id == result.id)) {
-      //   this.errorMessage = "this city has already been chosen";
-      //   return;
-      // }
+      console.log(2);
+      if (this.cities.find((c) => c.id == result.id)) {
+        this.errorMessage = "this city has already been chosen";
+        return;
+      }
+      console.log(1);
       this.value = result.city;
       this.city = result;
       this.results = [];
