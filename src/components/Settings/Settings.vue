@@ -2,7 +2,7 @@
   <div class="settings">
     <span class="settings__title">Settings</span>
     <button class="settings__close" @click="close">
-      <img v-svg-inline src="@/assets/icons/close.svg" />
+      <IconClose />
     </button>
     <div class="settings__cities">
       <Cities :cities="cities" @updateCities="updateCities" />
@@ -13,6 +13,7 @@
   </div>
 </template>
 <script lang="ts">
+import IconClose from "@/assets/icons/close.svg";
 import { PropType } from "vue";
 import AddCity from "@/components/AddCity/AddCity.vue";
 import Cities from "@/components/Cities/Cities.vue";
@@ -22,7 +23,7 @@ import { defineComponent } from "@vue/runtime-core";
 
 export default defineComponent({
   name: "AppSettings",
-  components: { AddCity, Cities },
+  components: { AddCity, Cities, IconClose },
   props: {
     cities: {
       type: Array as PropType<ICity[]>,

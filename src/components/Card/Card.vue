@@ -15,10 +15,10 @@
       <div class="card__description">{{ this.description }}</div>
       <div class="card__details">
         <div class="card__detail" v-if="data.speed">
-          <img v-svg-inline src="@/assets/icons/wind.svg" /> {{ wind }}
+          <IconWind />
         </div>
         <div class="card__detail" v-if="data.pressure">
-          <img v-svg-inline src="@/assets/icons/barometer.svg" />
+          <IconBarometer />
           {{ data.pressure }}hPa
         </div>
         <div class="card__detail" v-if="data.pressure">
@@ -40,6 +40,8 @@
   </div>
 </template>
 <script lang="ts">
+import IconWind from "@/assets/icons/wind.svg";
+import IconBarometer from "@/assets/icons/barometer.svg";
 import { PropType } from "vue";
 import { fetchWeather } from "@/api";
 import { defineComponent } from "@vue/runtime-core";
@@ -48,7 +50,7 @@ import { IWeather } from "@/types/IWeather";
 
 export default defineComponent({
   name: "AppCard",
-  components: {},
+  components: { IconWind, IconBarometer },
   props: {
     city: {
       type: Object as PropType<ICity>,

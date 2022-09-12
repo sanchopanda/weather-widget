@@ -9,17 +9,17 @@
       v-for="(city, i) in cities"
       :key="city.id"
     >
-      <span class="city__burger">
-        <img v-svg-inline src="@/assets/icons/burger.svg"
-      /></span>
+      <span class="city__burger"> <IconBurger /></span>
       <div class="city__name">{{ city.city }}, {{ city.country_code }}</div>
       <button class="city__delete" @click="deleteCity(city)">
-        <img v-svg-inline src="@/assets/icons/basket.svg" />
+        <IconBasket />
       </button>
     </div>
   </div>
 </template>
 <script lang="ts">
+import IconBasket from "@/assets/icons/basket.svg";
+import IconBurger from "@/assets/icons/burger.svg";
 import { PropType } from "vue";
 import { ICity } from "@/types/ICity";
 import { IOver } from "@/types/IOver";
@@ -27,6 +27,7 @@ import { defineComponent } from "@vue/runtime-core";
 
 export default defineComponent({
   name: "AppCities",
+  components: { IconBasket, IconBurger },
   props: {
     cities: {
       type: Array as PropType<ICity[]>,

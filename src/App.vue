@@ -2,7 +2,7 @@
   <div class="app">
     <div class="app__inner">
       <button class="app__settings-toggle" @click="settingsVisible = true">
-        <img v-svg-inline src="@/assets/icons/settings.svg" />
+        <SettingsIcon />
       </button>
       <div class="app__settings" :class="{ isVisible: settingsVisible }">
         <Settings
@@ -22,6 +22,7 @@
 </template>
 
 <script lang="ts">
+import SettingsIcon from "@/assets/icons/settings.svg";
 import { defineComponent } from "vue";
 import Card from "@/components/Card/Card.vue";
 import Settings from "@/components/Settings/Settings.vue";
@@ -33,6 +34,7 @@ export default defineComponent({
   components: {
     Card,
     Settings,
+    SettingsIcon,
   },
   data() {
     return {

@@ -10,7 +10,7 @@
       ref="input"
     />
     <button type="submit" class="add-city__submit" @click="addCity">
-      <img v-svg-inline src="@/assets/icons/enter.svg" />
+      <IconEnter />
     </button>
     <div class="add-city__error" v-if="errorMessage !== ''">
       {{ this.errorMessage }}
@@ -30,13 +30,14 @@
   </div>
 </template>
 <script lang="ts">
+import IconEnter from "@/assets/icons/enter.svg";
 import { ICity } from "@/types/ICity";
 import { fetchAutocompleteCities } from "@/api";
 import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "AppAddCity",
-  components: {},
+  components: { IconEnter },
   props: {
     cities: {
       type: Array as PropType<ICity[]>,
