@@ -3,6 +3,7 @@ const webpack = require("webpack");
 module.exports = defineConfig({
   transpileDependencies: true,
   css: {
+    extract: false,
     loaderOptions: {
       sass: {
         additionalData: `@import "@/styles/mixins.scss";`,
@@ -19,4 +20,5 @@ module.exports = defineConfig({
   chainWebpack: (config) => {
     config.optimization.delete("splitChunks");
   },
+  publicPath: process.env.NODE_ENV === "production" ? "/weather-widget/" : "/",
 });
