@@ -47,7 +47,7 @@ export default defineComponent({
     return {
       value: "",
       city: null as null | ICity,
-      results: [] as Array<ICity[]>,
+      results: [] as Array<ICity>,
       errorMessage: "",
     };
   },
@@ -81,8 +81,15 @@ export default defineComponent({
         return;
       }
 
+      if (this.results.length > 0) {
+        const result = this.results[0];
+        this.selectAutocomplete(result);
+        return;
+      }
+
       if (!this.city) {
         this.errorMessage = "choose valid city";
+        return;
       }
     },
 
@@ -91,7 +98,7 @@ export default defineComponent({
         this.errorMessage = "this city has already been chosen";
         return;
       }
-      this.value = result.city;
+      this.value = `${result.city}, ${result.country_code}`;
       this.city = result;
       this.results = [];
       (this.$refs["input"] as HTMLInputElement).focus();

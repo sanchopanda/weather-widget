@@ -3,15 +3,36 @@
     display: flex;
     justify-content: center;
     padding: 8px;   
-    font-size: 18px; 
-    
+    font-size: 18px;     
     box-sizing: border-box;
 
     &__inner  {
-        width: 296px;
+        width: 304px;
         padding: 8px;
         display: flex;
         position: relative;
+        box-sizing: border-box;
+    }
+
+    &__settings {
+        position: absolute;
+        top: 0;
+        right: 0;        
+        opacity: 0;
+        width: 0px;
+        padding: 0px;
+        overflow: hidden;
+        z-index: 1;      
+        transition-property: opacity, width, padding;
+        transition-duration: .3s;
+        
+      
+        &.isVisible {
+          opacity: 1;
+          width: 100%;
+          padding: 8px;
+          overflow: hidden;
+        }
     }
 
     &__settings-toggle {
@@ -27,7 +48,6 @@
         }
 
         &:hover svg {
-            color: var(--green);
             transform: rotate(180deg);
         }
     }

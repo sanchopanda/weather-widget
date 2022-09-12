@@ -4,7 +4,7 @@
       <button class="app__settings-toggle" @click="settingsVisible = true">
         <img v-svg-inline src="@/assets/icons/settings.svg" />
       </button>
-      <div class="app__settings">
+      <div class="app__settings" :class="{ isVisible: settingsVisible }">
         <Settings
           :cities="cities"
           :isVisible="settingsVisible"

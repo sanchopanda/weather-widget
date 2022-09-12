@@ -1,5 +1,5 @@
 <template>
-  <div class="settings" :class="{ isVisible: isVisible }">
+  <div class="settings">
     <span class="settings__title">Settings</span>
     <button class="settings__close" @click="close">
       <img v-svg-inline src="@/assets/icons/close.svg" />
@@ -26,10 +26,6 @@ export default defineComponent({
   props: {
     cities: {
       type: Array as PropType<ICity[]>,
-      required: true,
-    },
-    isVisible: {
-      type: Boolean,
       required: true,
     },
   },

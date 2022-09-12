@@ -14,17 +14,10 @@
   pointer-events: none;
 
   &__burger {
+    @include button-reset;
     margin-right: 6px;
     cursor: pointer;
     pointer-events: auto;
-    @include defaultTransition(color);
-    outline: none;
-
-    &:hover,
-    &:focus {
-        color: var(--green);
-        outline: none;
-    }
   }
 
   &__delete {
@@ -32,11 +25,5 @@
     margin-left: auto;
     cursor: pointer;
     pointer-events: auto;
-    @include defaultTransition(color);
-
-    &:hover,
-    &:focus {
-        color: var(--green);
-    }
   }
 }

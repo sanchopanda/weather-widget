@@ -16,12 +16,6 @@
     &__submit {
         grid-area: submit;
         @include button-reset;
-        @include defaultTransition(color);
-
-        &:hover,
-        &:focus {
-            color: var(--green);
-        }
     }
 
     &__error {
