@@ -87,12 +87,10 @@ export default defineComponent({
     },
 
     selectAutocomplete(result: ICity) {
-      console.log(2);
       if (this.cities.find((c) => c.id == result.id)) {
         this.errorMessage = "this city has already been chosen";
         return;
       }
-      console.log(1);
       this.value = result.city;
       this.city = result;
       this.results = [];

@@ -13,7 +13,10 @@
         />
       </div>
       <div class="app__cards">
-        <Card v-for="city in cities" :key="city" :city="city" />
+        <template v-if="cities.length">
+          <Card v-for="city in cities" :key="city" :city="city" />
+        </template>
+        <Card v-else />
       </div>
     </div>
   </div>
@@ -48,6 +51,7 @@ export default defineComponent({
       if (value.length > 0) {
         this.cities = value;
       } else {
+        this.cities = value;
         this.cities = [await fetchCurrentCity()];
       }
     },

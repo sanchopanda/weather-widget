@@ -52,7 +52,6 @@ export default defineComponent({
   props: {
     city: {
       type: Object as PropType<ICity>,
-      required: true,
     },
   },
   data() {
@@ -61,7 +60,7 @@ export default defineComponent({
     };
   },
   async mounted() {
-    this.data = await fetchWeather(this.city);
+    this.data = this.city ? await fetchWeather(this.city) : null;
   },
   methods: {
     stringifyTemp(temp: number) {

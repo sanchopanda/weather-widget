@@ -1,0 +1,42 @@
+.cities {
+  &__city {
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+}
+
+.city {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  background: var(--gray);
+  pointer-events: none;
+
+  &__burger {
+    margin-right: 6px;
+    cursor: pointer;
+    pointer-events: auto;
+    @include defaultTransition(color);
+    outline: none;
+
+    &:hover,
+    &:focus {
+        color: var(--green);
+        outline: none;
+    }
+  }
+
+  &__delete {
+    @include button-reset;
+    margin-left: auto;
+    cursor: pointer;
+    pointer-events: auto;
+    @include defaultTransition(color);
+
+    &:hover,
+    &:focus {
+        color: var(--green);
+    }
+  }
+}
