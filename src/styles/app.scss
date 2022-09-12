@@ -39,11 +39,10 @@
         position: absolute;
         top: 16px;
         right: 16px;
-        @include button-reset;
-       
+        @include button-reset;       
 
         svg {
-            @include defaultTransition(color, transform);
+            @include defaultTransition(transform);
             transform-origin: 50%;
         }
 

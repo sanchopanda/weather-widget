@@ -7,7 +7,6 @@
       <div class="app__settings" :class="{ isVisible: settingsVisible }">
         <Settings
           :cities="cities"
-          :isVisible="settingsVisible"
           @updateCities="updateCities"
           @close="settingsVisible = false"
         />
@@ -51,9 +50,10 @@ export default defineComponent({
       if (value.length > 0) {
         this.cities = value;
       } else {
-        this.cities = value;
         this.cities = [await fetchCurrentCity()];
       }
+
+      localStorage.setItem("weather-cities", JSON.stringify(this.cities));
     },
   },
 });
