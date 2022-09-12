@@ -22,6 +22,7 @@
 <script lang="ts">
 import { PropType } from "vue";
 import { ICity } from "@/types/ICity";
+import { IOver } from "@/types/IOver";
 import { defineComponent } from "@vue/runtime-core";
 
 export default defineComponent({
@@ -34,7 +35,7 @@ export default defineComponent({
   },
   data: function () {
     return {
-      over: {} as any,
+      over: {} as IOver | null,
       startLoc: 0,
       dragging: false,
       dragFrom: {},
@@ -56,9 +57,11 @@ export default defineComponent({
     finishDrag(city: ICity, pos: number) {
       const newCities = [...this.cities];
       newCities.splice(pos, 1);
-      newCities.splice(this.over.pos, 0, city);
+      if (this.over) {
+        newCities.splice(this.over.pos, 0, city);
+      }
       this.updateCities(newCities);
-      this.over = {};
+      this.over = null;
     },
 
     onDragOver(city: ICity, pos: number, e: MouseEvent) {

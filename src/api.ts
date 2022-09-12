@@ -1,65 +1,75 @@
 import { ICity } from "./types/ICity";
+import { IPos } from "./types/IPos";
 import { IWeather } from "./types/IWeather";
 
 const OPEN_WEATHER_API = "https://api.openweathermap.org/data/2.5/weather";
 const AUTOCOMPLETE_API = "https://autocomplete.travelpayouts.com/places2";
 
-export const fetchWeather = async (request: ICity): Promise<IWeather> => {
-  const response = await fetch(
+export const fetchWeather = async (
+  request: ICity
+): Promise<IWeather | null> => {
+  return fetch(
     `${OPEN_WEATHER_API}?q=${request.city},${request.country_code}&units=metric&appid=${process.env.VUE_APP_OPEN_WEATHER_API_KEY}`
-  );
-  const rawData = await response.json();
+  )
+    .then((r) => r.json())
+    .then((rawData) => {
+      const {
+        name: city,
+        sys: { country: country_code },
+        main: {
+          feels_like: feels_like,
+          temp: temp,
+          pressure: pressure,
+          humidity: humidity,
+        },
+        weather: [{ description: description, icon: icon }],
+        visibility: visibility,
+        wind: { deg: degree, speed: speed },
+      } = rawData;
 
-  const {
-    name: city,
-    sys: { country: country_code },
-    main: {
-      feels_like: feels_like,
-      temp: temp,
-      pressure: pressure,
-      humidity: humidity,
-    },
-    weather: [{ description: description, icon: icon }],
-    visibility: visibility,
-    wind: { deg: degree, speed: speed },
-  } = rawData;
-
-  return {
-    city,
-    country_code,
-    temp,
-    pressure,
-    humidity,
-    visibility,
-    feels_like,
-    description,
-    icon,
-    degree,
-    speed,
-  };
+      return {
+        city,
+        country_code,
+        temp,
+        pressure,
+        humidity,
+        visibility,
+        feels_like,
+        description,
+        icon,
+        degree,
+        speed,
+      };
+    })
+    .catch(() => {
+      return null;
+    });
 };
 
-export const fetchCurrentCity = async (): Promise<ICity> => {
-  const pos: any = await new Promise((resolve, reject) => {
+export const fetchCurrentCity = async (): Promise<ICity | null> => {
+  const pos: IPos = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 
-  const response = await fetch(
+  return fetch(
     `${OPEN_WEATHER_API}?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=${process.env.VUE_APP_OPEN_WEATHER_API_KEY}`
-  );
-
-  const rawData = await response.json();
-
-  const {
-    name: city,
-    sys: { country: country_code },
-    id,
-  } = rawData;
-  return {
-    city,
-    country_code,
-    id,
-  };
+  )
+    .then((r) => r.json())
+    .then((rawData) => {
+      const {
+        name: city,
+        sys: { country: country_code },
+        id,
+      } = rawData;
+      return {
+        city,
+        country_code,
+        id,
+      };
+    })
+    .catch(() => {
+      return null;
+    });
 };
 
 export const fetchAutocompleteCities = (value: string) => {
@@ -74,7 +84,7 @@ export const fetchAutocompleteCities = (value: string) => {
         }))
         .slice(0, 5)
     )
-    .catch((e) => {
+    .catch(() => {
       const error = new Error();
       throw error;
     });

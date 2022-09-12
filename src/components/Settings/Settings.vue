@@ -29,14 +29,6 @@ export default defineComponent({
       required: true,
     },
   },
-  data: function () {
-    return {
-      over: {} as any,
-      startLoc: 0,
-      dragging: false,
-      dragFrom: {},
-    };
-  },
   methods: {
     addCity(city: ICity) {
       const newCities: Array<ICity> = [...this.cities, city];

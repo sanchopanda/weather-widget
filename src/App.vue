@@ -41,19 +41,24 @@ export default defineComponent({
     };
   },
   async mounted() {
-    this.cities = JSON.parse(
-      localStorage.getItem("weather-cities") as string
-    ) ?? [await fetchCurrentCity()];
+    this.cities =
+      JSON.parse(localStorage.getItem("weather-cities") as string) ??
+      (await this.currentCityArray());
   },
   methods: {
     async updateCities(value: Array<ICity>) {
       if (value.length > 0) {
         this.cities = value;
       } else {
-        this.cities = [await fetchCurrentCity()];
+        this.cities = await this.currentCityArray();
       }
 
       localStorage.setItem("weather-cities", JSON.stringify(this.cities));
+    },
+
+    async currentCityArray() {
+      const currentCity = await fetchCurrentCity();
+      return currentCity ? [currentCity] : [];
     },
   },
 });
