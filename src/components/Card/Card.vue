@@ -14,9 +14,7 @@
       </div>
       <div class="card__description">{{ this.description }}</div>
       <div class="card__details">
-        <div class="card__detail" v-if="data.speed">
-          <IconWind />
-        </div>
+        <div class="card__detail" v-if="data.speed"><IconWind />{{ wind }}</div>
         <div class="card__detail" v-if="data.pressure">
           <IconBarometer />
           {{ data.pressure }}hPa

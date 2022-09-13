@@ -34,5 +34,6 @@ module.exports = defineConfig({
       .use("vue-svg-loader")
       .loader("vue-svg-loader");
   },
-  publicPath: process.env.NODE_ENV === "production" ? "/weather-widget/" : "/",
+  publicPath:
+    process.env.NODE_ENV === "production" ? process.env.GHP_ROOT : "/",
 });
