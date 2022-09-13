@@ -12,8 +12,8 @@
     <button type="submit" class="add-city__submit" @click="addCity">
       <IconEnter />
     </button>
-    <div class="add-city__error" v-if="errorMessage !== ''">
-      {{ this.errorMessage }}
+    <div class="add-city__error" v-if="errorMessage">
+      {{ errorMessage }}
     </div>
     <ul class="add-city__results" v-if="results.length">
       <li
@@ -49,7 +49,7 @@ export default defineComponent({
       value: "",
       city: null as null | ICity,
       results: [] as Array<ICity>,
-      errorMessage: "",
+      errorMessage: null as null | string,
     };
   },
   methods: {
@@ -58,13 +58,15 @@ export default defineComponent({
       if (this.value.length > 2) {
         try {
           this.results = await fetchAutocompleteCities(this.value);
-          this.errorMessage = "";
-        } catch {
-          this.errorMessage = "something went wrong";
+          this.errorMessage = null;
+        } catch (e) {
+          if (e instanceof Error) {
+            this.errorMessage = e.message;
+          }
         }
       } else {
         this.results = [];
-        this.errorMessage = "";
+        this.errorMessage = null;
       }
     },
 
@@ -103,7 +105,7 @@ export default defineComponent({
       this.city = result;
       this.results = [];
       (this.$refs["input"] as HTMLInputElement).focus();
-      this.errorMessage = "";
+      this.errorMessage = null;
     },
   },
 });

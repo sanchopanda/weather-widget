@@ -42,14 +42,22 @@ export const fetchWeather = async (
       };
     })
     .catch(() => {
-      return null;
+      throw new Error("Something went wrong");
     });
 };
 
 export const fetchCurrentCity = async (): Promise<ICity | null> => {
-  const pos: IPos = await new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
+  let pos: IPos;
+
+  try {
+    pos = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+  } catch {
+    throw new Error(
+      "Please allow to acces your location or select city in settings"
+    );
+  }
 
   return fetch(
     `${OPEN_WEATHER_API}?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=${process.env.VUE_APP_OPEN_WEATHER_API_KEY}`
@@ -68,7 +76,7 @@ export const fetchCurrentCity = async (): Promise<ICity | null> => {
       };
     })
     .catch(() => {
-      return null;
+      throw new Error("Something went wrong");
     });
 };
 
@@ -85,7 +93,6 @@ export const fetchAutocompleteCities = (value: string) => {
         .slice(0, 5)
     )
     .catch(() => {
-      const error = new Error();
-      throw error;
+      throw new Error("Something went wrong");
     });
 };

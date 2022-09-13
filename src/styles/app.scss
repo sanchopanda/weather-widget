@@ -50,4 +50,9 @@
             transform: rotate(180deg);
         }
     }
+
+    &__error-message {
+        margin-top: 32px;
+        color: var(--red);
+    }
 }

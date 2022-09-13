@@ -55,6 +55,11 @@
       margin-right: 4px;
     }
   }
+
+  &__error-message {
+    margin-top: 32px;
+    color: var(--red);
+}
 }
 
 .lds-dual-ring {

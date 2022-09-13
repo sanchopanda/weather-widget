@@ -34,6 +34,9 @@
         </div>
       </div>
     </template>
+    <div class="card__loader" v-else-if="errorMessage">
+      <p class="card__error-message">{{ errorMessage }}</p>
+    </div>
     <div class="card__loader" v-else>
       <div class="lds-dual-ring"></div>
     </div>
@@ -59,10 +62,18 @@ export default defineComponent({
   data() {
     return {
       data: null as null | IWeather,
+      errorMessage: null as null | string,
     };
   },
   async mounted() {
-    this.data = this.city ? await fetchWeather(this.city) : null;
+    try {
+      this.data = this.city ? await fetchWeather(this.city) : null;
+      this.errorMessage = null;
+    } catch (e) {
+      if (e instanceof Error) {
+        this.errorMessage = e.message;
+      }
+    }
   },
   methods: {
     stringifyTemp(temp: number) {

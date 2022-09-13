@@ -15,6 +15,9 @@
         <template v-if="cities.length">
           <Card v-for="city in cities" :key="city" :city="city" />
         </template>
+        <div class="app__error-message" v-else-if="errorMessage">
+          {{ errorMessage }}
+        </div>
         <Card v-else />
       </div>
     </div>
@@ -38,14 +41,19 @@ export default defineComponent({
   },
   data() {
     return {
-      cities: [] as Array<ICity>,
+      cities: [] as Array<ICity | null>,
       settingsVisible: false as boolean,
+      errorMessage: null as null | string,
     };
   },
   async mounted() {
-    this.cities =
-      JSON.parse(localStorage.getItem("weather-cities") as string) ??
-      (await this.currentCityArray());
+    const storageValue = JSON.parse(
+      localStorage.getItem("weather-cities") as string
+    );
+
+    this.cities = storageValue.length
+      ? storageValue
+      : await this.currentCityArray();
   },
   methods: {
     async updateCities(value: Array<ICity>) {
@@ -59,8 +67,16 @@ export default defineComponent({
     },
 
     async currentCityArray() {
-      const currentCity = await fetchCurrentCity();
-      return currentCity ? [currentCity] : [];
+      try {
+        const currentCity = await fetchCurrentCity();
+        this.errorMessage = null;
+        return [currentCity];
+      } catch (e) {
+        if (e instanceof Error) {
+          this.errorMessage = e.message;
+        }
+        return [];
+      }
     },
   },
 });
