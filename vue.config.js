@@ -16,6 +16,10 @@ module.exports = defineConfig({
         maxChunks: 1,
       }),
     ],
+    output: {
+      filename: "[name].js",
+      chunkFilename: "[name].js",
+    },
   },
   chainWebpack: (config) => {
     config.optimization.delete("splitChunks");
