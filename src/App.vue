@@ -51,9 +51,10 @@ export default defineComponent({
       localStorage.getItem("weather-cities") as string
     );
 
-    this.cities = storageValue.length
-      ? storageValue
-      : await this.currentCityArray();
+    this.cities =
+      storageValue && storageValue.length
+        ? storageValue
+        : await this.currentCityArray();
   },
   methods: {
     async updateCities(value: Array<ICity>) {
