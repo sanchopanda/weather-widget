@@ -35,5 +35,5 @@ module.exports = defineConfig({
       .loader("vue-svg-loader");
   },
   publicPath:
-    process.env.NODE_ENV === "production" ? process.env.GHP_ROOT : "/",
+    process.env.NODE_ENV === "production" ? process.env.GH_PAGES_ROOT : "/",
 });
