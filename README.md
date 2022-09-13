@@ -8,7 +8,7 @@
 
 add this widget into your HTML-page:
 ```
-<weather-widget></weather-widget>
+<weather-widget />
 <script defer="defer" src="https://sanchopanda.github.io/weather-widget/app.js"></script>
 ```
 
@@ -35,7 +35,7 @@ npm run serve
 npm run build
 ```
 
-### deploy
+### Deploy
 
 the dist folder will be deployed to the gh-pages branch
 ```
