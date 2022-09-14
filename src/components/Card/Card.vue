@@ -79,6 +79,7 @@ export default defineComponent({
     },
 
     stringifyRoseOfWind(degree: number) {
+      if (degree > 360 || degree < 0) return "";
       if (degree > 337.5 || degree < 22.5) return "N";
       if (degree >= 22.5 && degree < 67.5) return "NE";
       if (degree >= 67.5 && degree < 112.5) return "E";
